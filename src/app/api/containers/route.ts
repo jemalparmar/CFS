@@ -1,8 +1,8 @@
 // Containers API Route - GET /api/containers
+// Note: Database integration requires DB_URL and DB_TOKEN environment variables
 
 import { NextResponse } from "next/server";
-import { db } from "@/db";
-import { containers } from "@/db/schema";
+import { mockContainers } from "@/lib/mock-data";
 
 export async function GET(request: Request) {
   try {
@@ -11,27 +11,21 @@ export async function GET(request: Request) {
     const type = searchParams.get("type");
     const search = searchParams.get("search");
 
-    let query = db.select().from(containers);
-
-    // Note: In production, you'd apply filters here
-    // For now, return all containers as mock data would be used
+    let filtered = [...mockContainers];
     
-    const allContainers = await query;
-    
-    let filtered = allContainers;
-    
-    if (status) {
+    if (status && status !== "ALL") {
       filtered = filtered.filter(c => c.status === status);
     }
-    if (type) {
+    if (type && type !== "ALL") {
       filtered = filtered.filter(c => c.type === type);
     }
     if (search) {
       const searchLower = search.toLowerCase();
       filtered = filtered.filter(c => 
-        c.containerNo?.toLowerCase().includes(searchLower) ||
-        c.blNo?.toLowerCase().includes(searchLower) ||
-        c.consignee?.toLowerCase().includes(searchLower)
+        c.containerNo.toLowerCase().includes(searchLower) ||
+        c.blNo.toLowerCase().includes(searchLower) ||
+        c.consignee.toLowerCase().includes(searchLower) ||
+        c.vesselName.toLowerCase().includes(searchLower)
       );
     }
 
@@ -53,40 +47,18 @@ export async function POST(request: Request) {
   try {
     const body = await request.json();
     
-    const [newContainer] = await db.insert(containers).values({
-      containerNo: body.containerNo,
-      blNo: body.blNo,
-      size: body.size,
-      type: body.type,
-      status: body.status || "ARRIVED",
-      yardLocation: body.yardLocation,
-      row: body.row,
-      bay: body.bay,
-      tier: body.tier,
-      weight: body.weight,
-      tare: body.tare,
-      grossWeight: body.grossWeight,
-      shipper: body.shipper,
-      consignee: body.consignee,
-      commodity: body.commodity,
-      portOfLoading: body.portOfLoading,
-      portOfDischarge: body.portOfDischarge,
-      arrivalDate: body.arrivalDate,
-      freeTime: body.freeTime,
-      daysInYard: body.daysInYard,
-      customsStatus: body.customsStatus,
-      vesselName: body.vesselName,
-      voyageNo: body.voyageNo,
-      sealNo: body.sealNo,
-      temperature: body.temperature,
-      isHazmat: body.isHazmat || false,
-      imoClass: body.imoClass,
-      unNo: body.unNo,
-    }).returning();
+    // In production, this would insert into the database
+    // For now, return success with the submitted data
+    const newContainer = {
+      id: Date.now(),
+      ...body,
+      createdAt: new Date().toISOString(),
+    };
 
     return NextResponse.json({ 
       success: true, 
-      data: newContainer 
+      data: newContainer,
+      message: "Container created (demo mode - database not connected)"
     }, { status: 201 });
   } catch (error) {
     console.error("Error creating container:", error);
