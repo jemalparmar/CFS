@@ -1,87 +1,123 @@
-# Active Context: Next.js Starter Template
+# Active Context: CFS Terminal Operating System
 
 ## Current State
 
-**Template Status**: ✅ Ready for development
+**Application Status**: ✅ Fully Built & Deployed
 
-The template is a clean Next.js 16 starter with TypeScript and Tailwind CSS 4. It's ready for AI-assisted expansion to build any type of application.
+The application is a complete CFS (Container Freight Station) Terminal Operating System for Indian port terminals, built on Next.js 16 with TypeScript and Tailwind CSS 4.
 
 ## Recently Completed
 
-- [x] Base Next.js 16 setup with App Router
-- [x] TypeScript configuration with strict mode
-- [x] Tailwind CSS 4 integration
-- [x] ESLint configuration
-- [x] Memory bank documentation
-- [x] Recipe system for common features
+- [x] Full CFS TOS implementation from scratch
+- [x] Dashboard with live stats, charts (recharts), yard occupancy trends
+- [x] Yard Map with SVG visualization, block occupancy bars, container slot dots
+- [x] Container Tracking with full details drawer, demurrage alerts, sorting/filtering
+- [x] Gate Management with QR scanner simulation, entry/exit control, pending trucks
+- [x] Truck Token System with token issuance form, QR display, truck queue
+- [x] Weighbridge Integration with live weight display, slip generation, bar charts
+- [x] TAX Invoice with GST compliance (CGST/SGST/IGST), line items, bank details
+- [x] ICEGATE/CBIC Compliance with BE tracking, examination orders, OOC status, compliance checklist
+- [x] Shared UI: Badge component with status variants, Sidebar navigation, TopBar with live IST clock
+- [x] Type definitions for all entities (Container, Truck, Token, Gate, Weighbridge, Invoice, IceGate)
+- [x] Mock data for all modules with realistic Indian port data
+- [x] Build passing, TypeScript clean, ESLint clean
 
 ## Current Structure
 
 | File/Directory | Purpose | Status |
 |----------------|---------|--------|
-| `src/app/page.tsx` | Home page | ✅ Ready |
-| `src/app/layout.tsx` | Root layout | ✅ Ready |
-| `src/app/globals.css` | Global styles | ✅ Ready |
-| `.kilocode/` | AI context & recipes | ✅ Ready |
+| `src/app/page.tsx` | Dashboard | ✅ Ready |
+| `src/app/yard-map/page.tsx` | Yard Map Visualization | ✅ Ready |
+| `src/app/containers/page.tsx` | Container Tracking | ✅ Ready |
+| `src/app/gate/page.tsx` | Gate QR Scanning | ✅ Ready |
+| `src/app/tokens/page.tsx` | Truck Token System | ✅ Ready |
+| `src/app/weighbridge/page.tsx` | Weighbridge Integration | ✅ Ready |
+| `src/app/invoices/page.tsx` | TAX Invoice (GST) | ✅ Ready |
+| `src/app/icegate/page.tsx` | ICEGATE/CBIC Compliance | ✅ Ready |
+| `src/components/layout/Sidebar.tsx` | Navigation sidebar | ✅ Ready |
+| `src/components/layout/TopBar.tsx` | Top bar with IST clock | ✅ Ready |
+| `src/components/ui/Badge.tsx` | Status badge component | ✅ Ready |
+| `src/lib/types.ts` | TypeScript type definitions | ✅ Ready |
+| `src/lib/mock-data.ts` | Mock data for all modules | ✅ Ready |
 
-## Current Focus
+## Tech Stack Additions
 
-The template is ready. Next steps depend on user requirements:
+- `lucide-react` — Icons
+- `recharts` — Charts (bar, pie, line)
+- `date-fns` — Date utilities
 
-1. What type of application to build
-2. What features are needed
-3. Design/branding preferences
+## CFS TOS Features Implemented
 
-## Quick Start Guide
+### 1. Dashboard
+- 8 stat cards (containers, trucks, gate in/out, invoices)
+- Weekly truck traffic bar chart
+- Container status pie chart
+- Yard occupancy line chart
+- Recent containers table
+- Recent gate activity table
+- Demurrage alert banner
 
-### To add a new page:
+### 2. Yard Map
+- SVG-based yard layout with 6 blocks (Import A/B, Reefer R, Hazmat H, Export E, Empty MT)
+- Color-coded blocks by type
+- Occupancy progress bars per block
+- Container slot dots (color by status)
+- Zoom in/out controls
+- Block selection with container list
+- Container detail modal
 
-Create a file at `src/app/[route]/page.tsx`:
-```tsx
-export default function NewPage() {
-  return <div>New page content</div>;
-}
-```
+### 3. Container Tracking
+- Full table with sorting, filtering by status/type
+- Search by container no, BL, consignee, vessel
+- Side drawer with complete container details
+- Demurrage warning for overdue containers
+- Reefer temperature and Hazmat IMO class display
 
-### To add components:
+### 4. Gate Management
+- 4 gate cards (GATE-1 to GATE-4) with status
+- QR scanner simulation with camera frame animation
+- Manual token input with validation
+- Success/error/warning scan results
+- Gate IN / Gate OUT action buttons
+- All gate entries table
+- Pending trucks list
 
-Create `src/components/` directory and add components:
-```tsx
-// src/components/ui/Button.tsx
-export function Button({ children }: { children: React.ReactNode }) {
-  return <button className="px-4 py-2 bg-blue-600 text-white rounded">{children}</button>;
-}
-```
+### 5. Truck Token System
+- Token cards with status badges
+- Issue new token modal form
+- Token detail modal with QR code display
+- Print token button
+- Truck queue panel
 
-### To add a database:
+### 6. Weighbridge
+- Live weight display (gross/tare/net)
+- Current vehicle info panel
+- Weight bar chart
+- Records table with all weighings
+- Weighbridge slip detail modal
+- New entry form
 
-Follow `.kilocode/recipes/add-database.md`
+### 7. TAX Invoice (GST)
+- Invoice list with status filter
+- Full invoice preview with:
+  - Bill From / Bill To with GSTIN, PAN
+  - Line items with SAC codes
+  - CGST/SGST/IGST breakdown
+  - Bank details
+  - Mark as Paid / Send Reminder actions
 
-### To add API routes:
-
-Create `src/app/api/[route]/route.ts`:
-```tsx
-import { NextResponse } from "next/server";
-
-export async function GET() {
-  return NextResponse.json({ message: "Hello" });
-}
-```
-
-## Available Recipes
-
-| Recipe | File | Use Case |
-|--------|------|----------|
-| Add Database | `.kilocode/recipes/add-database.md` | Data persistence with Drizzle + SQLite |
-
-## Pending Improvements
-
-- [ ] Add more recipes (auth, email, etc.)
-- [ ] Add example components
-- [ ] Add testing setup recipe
+### 8. ICEGATE / CBIC
+- ICEGATE connection status banner
+- BE (Bill of Entry) table with status
+- BE detail panel with full customs info
+- CBIC notices panel
+- Compliance checklist tab
+- Duty summary
+- Regulatory agencies status
+- Reports download tab
 
 ## Session History
 
 | Date | Changes |
 |------|---------|
-| Initial | Template created with base setup |
+| 2024-03-04 | Complete CFS TOS built from scratch with all 8 modules |
