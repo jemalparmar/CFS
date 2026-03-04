@@ -1,6 +1,6 @@
 "use client";
 
-import { Search, RefreshCw, Clock } from "lucide-react";
+import { Search, RefreshCw, Clock, User, LogOut } from "lucide-react";
 import { useState, useEffect } from "react";
 
 interface TopBarProps {
@@ -60,6 +60,27 @@ export function TopBar({ title, subtitle }: TopBarProps) {
         <button className="p-1.5 text-slate-400 hover:text-slate-200 hover:bg-slate-800 rounded-lg transition-all">
           <RefreshCw className="w-4 h-4" />
         </button>
+
+        {/* User Menu */}
+        <div className="relative group">
+          <button className="flex items-center gap-2 p-1.5 text-slate-400 hover:text-slate-200 hover:bg-slate-800 rounded-lg transition-all">
+            <div className="w-7 h-7 bg-blue-600/30 rounded-lg flex items-center justify-center">
+              <User className="w-4 h-4 text-blue-400" />
+            </div>
+          </button>
+          <div className="absolute right-0 top-full mt-2 w-48 bg-slate-800 border border-slate-700 rounded-lg shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all">
+            <div className="p-3 border-b border-slate-700">
+              <p className="text-white text-sm font-medium">Admin User</p>
+              <p className="text-slate-500 text-xs">admin@cfs-tos.com</p>
+            </div>
+            <div className="p-2">
+              <a href="/auth/login" className="flex items-center gap-2 px-2 py-1.5 text-slate-400 hover:text-white hover:bg-slate-700 rounded text-sm transition-all">
+                <LogOut className="w-4 h-4" />
+                Sign Out
+              </a>
+            </div>
+          </div>
+        </div>
       </div>
     </header>
   );
