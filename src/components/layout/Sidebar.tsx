@@ -16,6 +16,7 @@ import {
   Bell,
   Settings,
   LogOut,
+  ClipboardList,
 } from "lucide-react";
 
 const navItems = [
@@ -58,6 +59,11 @@ const navItems = [
     label: "ICEGATE / CBIC",
     href: "/icegate",
     icon: FileCheck,
+  },
+  {
+    label: "Delivery Orders",
+    href: "/delivery-orders",
+    icon: ClipboardList,
   },
 ];
 

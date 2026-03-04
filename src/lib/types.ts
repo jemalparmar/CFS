@@ -237,6 +237,64 @@ export interface IceGateEntry {
   remarks?: string;
 }
 
+export type DeliveryOrderStatus = "PENDING" | "APPROVED" | "RELEASED" | "EXPIRED" | "CANCELLED";
+export type DOType = "IMPORT" | "EXPORT";
+
+export interface DeliveryOrder {
+  id: string;
+  doNo: string;
+  doDate: string;
+  validUntil: string;
+  status: DeliveryOrderStatus;
+  doType: DOType;
+  containerNo: string;
+  blNo: string;
+  beNo: string;
+  igmNo: string;
+  lineNo: string;
+  consigneeName: string;
+  consigneeGSTIN: string;
+  consigneeAddress: string;
+  consigneeContact: string;
+  chaName: string;
+  chaCode: string;
+  chaContact: string;
+  shippingLine: string;
+  shippingLineRef: string;
+  commodity: string;
+  containerSize: ContainerSize;
+  containerType: ContainerType;
+  grossWeight: number;
+  packages: number;
+  packageUnit: string;
+  yardLocation: string;
+  vesselName: string;
+  voyageNo: string;
+  portOfLoading: string;
+  customsOOCDate?: string;
+  dutyPaid: boolean;
+  dutyAmount?: number;
+  demurrageCleared: boolean;
+  demurrageAmount?: number;
+  approvedBy?: string;
+  approvedAt?: string;
+  releasedBy?: string;
+  releasedAt?: string;
+  truckNo?: string;
+  tokenNo?: string;
+  remarks?: string;
+  documents: DODocument[];
+}
+
+export interface DODocument {
+  id: string;
+  docType: "BL_COPY" | "BE_COPY" | "OOC_CERT" | "DUTY_RECEIPT" | "ID_PROOF" | "AUTH_LETTER" | "OTHER";
+  docNo: string;
+  uploadedAt: string;
+  verified: boolean;
+  verifiedBy?: string;
+}
+
 export interface DashboardStats {
   totalContainers: number;
   containersInYard: number;
